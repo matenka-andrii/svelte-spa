@@ -1,14 +1,23 @@
-<script lang="ts">
+<script>
+    // Core
+    // import { onDestroy } from 'svelte';
+    import { fade, scale } from 'svelte/transition';
+
+    // Components
     import FeedbackItem from './FeedbackItem.svelte';
 
-    interface Props {
-        id: number,
-        rating: number,
-        text: string
-    }
-    export let feedback: Props[] = [];
+    // Store
+    import { FeedbackStore } from '../store';
+
+    // let feedback = [];
+    // const unsubscribe = FeedbackStore.subscribe((data) => feedback = data);
+    // onDestroy(() => {
+    //     unsubscribe();
+    // });
 </script>
 
-{#each feedback as fb (fb.id)}
-    <FeedbackItem item={fb} on:delete-feedback />
+{#each $FeedbackStore as fb (fb.id)}
+    <div in:scale out:fade={{duration: 200}}>
+        <FeedbackItem item={fb} />
+    </div>
 {/each}

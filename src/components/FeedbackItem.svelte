@@ -1,6 +1,12 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
+    // Core
+    // import { createEventDispatcher } from 'svelte';
+
+    // Components
     import Card from './Card.svelte';
+
+    // Store
+    import { FeedbackStore } from '../store';
 
     interface Props {
         id: number,
@@ -9,9 +15,12 @@
     }
     export let item: Props;
 
-    const dispatch = createEventDispatcher();
+    // const dispatch = createEventDispatcher();
     const handleDelete = (id:number) => {
-        dispatch('delete-feedback', id)
+        // dispatch('delete-feedback', id)
+        FeedbackStore.update((currentFeedback) => {
+            return currentFeedback.filter(o => o.id !== id);
+        });
     };
 </script>
 
